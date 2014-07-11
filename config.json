@@ -1,0 +1,13 @@
+{
+    
+    "database": "mongodb://YOURSERVER/YOURDB",
+    
+    "username": "YOURUSERNAME",
+    "password": "YORPASSWORD",
+    
+    "listenOn": "TCP",
+    "ip": "0.0.0.0",
+    "port": 3000,
+    "unix": "/var/tmp/node.sock" 
+    
+}
