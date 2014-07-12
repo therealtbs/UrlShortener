@@ -16,5 +16,8 @@
     "mockgoose": "^1.10.0",
     "should": "^4.0.4",
     "supertest": "^0.13.0"
+  },
+  "scripts": {
+    "test": "mocha -R spec"
   }
 }
