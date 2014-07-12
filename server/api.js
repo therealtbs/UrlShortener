@@ -14,7 +14,7 @@ app.get('/links', auth, function (req, res) {
                 url: cur.url,
                 link: cur.link,
                 stats: { 
-                    clicks: cur.length, 
+                    clicks: cur.stats.length, 
                     byRef: _.countBy(cur.stats, 'ref'),
                     byCountry: _.countBy(cur.stats, 'country')
                 }
@@ -49,7 +49,7 @@ app.delete('/links/:short', auth, function (req, res) {
             console.error(err);
             res.status(404).send(err);
         } else {
-            res.send(201);
+            res.send(204);
         }
     });
 });

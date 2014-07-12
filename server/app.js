@@ -14,7 +14,7 @@ app.get('/:link', function (req, res) {
             res.send(404, err);
         } else {
             res.redirect(data.url);
-            data.stats.push({ref: req.get('Referrer'), country: ip.lookup(req.ip).country});
+            data.stats.push({ref: req.get('Referrer'), country: (ip.lookup(req.ip) || {}).country});
             data.save();
         }
     })
