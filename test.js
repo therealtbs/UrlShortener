@@ -3,7 +3,7 @@ var request = require('supertest');
 var mongoose = require('mongoose');
 var mockgoose = require('mockgoose');
 var app = require('./server/app');
-
+var config = require('./config');
 describe('Service', function() {
     
   
