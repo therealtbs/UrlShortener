@@ -1,13 +1,14 @@
 {
     
-    "database": "mongodb://YOURSERVER/YOURDB",
+    "database": "mongodb://localhost/url",
     
     "username": "YOURUSERNAME",
-    "password": "YORPASSWORD",
+    "password": "YOURPASSWORD",
     
     "listenOn": "TCP",
     "useEnv": true,
     "ip": "0.0.0.0",
     "port": 3000,
-    "unix": "/var/tmp/node.sock"
+    "unix": "/var/tmp/node.sock",
+    "trustProxy": true
 }
