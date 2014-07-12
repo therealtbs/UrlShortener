@@ -2,21 +2,20 @@ var should = require('should');
 var request = require('supertest');
 var mongoose = require('mongoose');
 var mockgoose = require('mockgoose');
-var config = require('./config');
+var app = require('./server/app');
 
 describe('Service', function() {
-    var url = config.useEnv ? 'http://' + process.env.IP + ':' + process.env.PORT : 'http://' + config.ip + ':' + config.port;
+    
   
     before(function() {
         mockgoose(mongoose);
-        require('./server');
     });
     
     describe('Link', function() {
         
         it('should deny us access', function(done) {
         
-            request(url)
+            request(app)
         	.get('/admin/api/links')
             .expect(401, done);
     	
@@ -24,7 +23,7 @@ describe('Service', function() {
         
         it('should list no links', function(done) {
         
-            request(url)
+            request(app)
         	.get('/admin/api/links')
         	.set('Authorization', 'Basic ' + new Buffer(config.username + ':' + config.password).toString('base64'))
             .expect(200)
@@ -42,7 +41,7 @@ describe('Service', function() {
                 link: 'test'
             };
         
-            request(url)
+            request(app)
         	.post('/admin/api/links')
         	.set('Authorization', 'Basic ' + new Buffer(config.username + ':' + config.password).toString('base64'))
         	.send(link)
@@ -60,7 +59,7 @@ describe('Service', function() {
         
         it('should list 1 link', function(done) {
         
-            request(url)
+            request(app)
         	.get('/admin/api/links')
         	.set('Authorization', 'Basic ' + new Buffer(config.username + ':' + config.password).toString('base64'))
             .expect(200)
@@ -74,7 +73,7 @@ describe('Service', function() {
         
         it('should show no visits for \'test\'', function(done) {
             
-            request(url)
+            request(app)
         	.get('/admin/api/links/test')
         	.set('Authorization', 'Basic ' + new Buffer(config.username + ':' + config.password).toString('base64'))
             .expect(200)
@@ -87,7 +86,7 @@ describe('Service', function() {
         });
         
         it('should redirect to \'http://google.com\'', function(done) {
-            request(url)
+            request(app)
             .get('/test')
             .expect(302)
             .expect('Location', 'http://google.com')
@@ -95,7 +94,7 @@ describe('Service', function() {
         });
         
         it('should show 1 visit for \'test\'', function(done) {
-            request(url)
+            request(app)
         	.get('/admin/api/links/test')
         	.set('Authorization', 'Basic ' + new Buffer(config.username + ':' + config.password).toString('base64'))
             .expect(200)
@@ -107,7 +106,7 @@ describe('Service', function() {
         });
         
         it('should delete the link', function(done) {
-            request(url)
+            request(app)
         	.delete('/admin/api/links/test')
         	.set('Authorization', 'Basic ' + new Buffer(config.username + ':' + config.password).toString('base64'))
             .expect(204, done);
@@ -115,7 +114,7 @@ describe('Service', function() {
         
         it('should list no links', function(done) {
         
-            request(url)
+            request(app)
         	.get('/admin/api/links')
         	.set('Authorization', 'Basic ' + new Buffer(config.username + ':' + config.password).toString('base64'))
             .expect(200)
@@ -130,7 +129,7 @@ describe('Service', function() {
     
     describe('Random', function() {
         it('should generate a random link to \'http://google.com\'', function (done) {
-            request(url)
+            request(app)
         	.post('/admin/api/links')
         	.set('Authorization', 'Basic ' + new Buffer(config.username + ':' + config.password).toString('base64'))
         	.send({url: 'http://google.com'})
