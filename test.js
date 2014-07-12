@@ -2,15 +2,10 @@ var should = require('should');
 var request = require('supertest');
 var mongoose = require('mongoose');
 var mockgoose = require('mockgoose');
+mockgoose(mongoose);
 var app = require('./server/app');
 var config = require('./config');
-describe('Service', function() {
-    
-  
-    before(function() {
-        mockgoose(mongoose);
-    });
-    
+describe('Service', function() {  
     describe('Link', function() {
         
         it('should deny us access', function(done) {
